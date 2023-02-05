@@ -2,7 +2,7 @@ import numpy as np
 from numpy import ndarray
 from Operation import Operation
 
-class SigmoidOperation(Operation):
+class Sigmoid(Operation):
     def _output(self) -> ndarray:
         return 1/(1+np.exp(-1*self.input_))
 

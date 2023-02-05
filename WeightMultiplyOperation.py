@@ -3,6 +3,9 @@ from numpy import ndarray
 from Assert import Assert
 from ParamOperation import ParamOperation
 
+'''
+This operation is simply multiplying two matrices , typically an input X and a weight matrix W
+'''
 class WeightMultiply(ParamOperation):
     def __init__(self, W: ndarray) -> None:
         super().__init__(W)
