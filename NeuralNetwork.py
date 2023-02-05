@@ -8,7 +8,7 @@ from SigmoidOperation import Sigmoid
 from WeightMultiplyOperation import WeightMultiply
 from BiasAddOperation import BiasAdd
 
-class NeuralNetwork(Object):
+class NeuralNetwork(object):
     def __init__(self,input: ndarray, target: ndarray, operations: ndarray[Operation], loss: Loss) -> None:
         self.operations = operations
         self.lossOperation = loss
@@ -20,7 +20,7 @@ class NeuralNetwork(Object):
         #This function calculates the output of the model by calculating 
         #the output of all of its constituent operations
         for operation in self.operations:
-            self.input = operation.output(input)
+            self.input = operation.output(self.input)
             self.output = self.input
 
         self.loss = self.lossOperation(self.prediction,self.target)
@@ -39,9 +39,9 @@ class NeuralNetwork(Object):
                 self.param_grads.append(operation._param_grad(self.input_grad))
                 continue
             self.input_grad = operation._input_grad(self.input_grad)
-        return         
-        
-    def _isParamOperation(operation: Operation) -> bool:
+        return self.input_grad        
+             
+    def _isParamOperation(self, operation: Operation) -> bool:
         #This function simply checks if a given operation is a parameter operation or not
         if issubclass(operation.__class__, ParamOperation):
             return True
