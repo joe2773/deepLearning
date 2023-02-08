@@ -9,22 +9,22 @@ from WeightMultiplyOperation import WeightMultiply
 from BiasAddOperation import BiasAdd
 
 class NeuralNetwork(object):
-    def __init__(self,input: ndarray, target: ndarray, operations: ndarray[Operation], loss: Loss) -> None:
+    def __init__(self,input: ndarray, target: ndarray, operations: ndarray, loss: Loss) -> None:
         self.operations = operations
         self.lossOperation = loss
         self.input = input
         self.target = target
         super().__init__()
 
-    def _forward(self) -> float:
+    def _forward(self) -> ndarray:
         #This function calculates the output of the model by calculating 
         #the output of all of its constituent operations
         for operation in self.operations:
-            self.input = operation.output(self.input)
+            self.input = operation.forward(self.input)
             self.output = self.input
 
-        self.loss = self.lossOperation(self.prediction,self.target)
-        return self.loss
+        #self.loss = self.lossOperation._forward(self.output,self.target)
+        return self.output
 
     def _backward(self) -> ndarray:
         #This function calculates the gradient of the model by first calculating the loss_gradient

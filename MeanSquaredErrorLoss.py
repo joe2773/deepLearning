@@ -6,7 +6,7 @@ class MeanSquaredError(Loss):
         super().__init__()  
 
     def _output(self) -> float:
-        return (self.predictions - self.target)**2 / self.predictions.shape[0]
+        return (self.prediction - self.target)**2 / self.prediction.shape[0]
 
     def _input_grad(self) -> ndarray:
-        return 2*(self.predictions - self.target) / self.predictions.shape[0]
+        return 2*(self.prediction - self.target) / self.prediction.shape[0]
