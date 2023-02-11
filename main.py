@@ -22,6 +22,6 @@ network = NeuralNetwork(
     np.array([weightMultiplyOp]),
     loss)
 output = network._forward()
-print(output)
-print(network.loss)
-print(inputs)
+grads = network._backward()
+param_grads = network.param_grads
+print(param_grads)

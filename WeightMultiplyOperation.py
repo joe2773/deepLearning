@@ -14,7 +14,7 @@ class WeightMultiply(ParamOperation):
         return np.dot(self.input_, self.param)
 
     def _input_grad(self, output_grad: ndarray) -> ndarray:
-        return np.dot(output_grad, np.transpose(self.param(1,0)))
+        return np.dot(output_grad, np.transpose(self.param))
 
     def _param_grad(self, output_grad : ndarray) -> ndarray:
-        return np.dot(np.transpose(self.input_,(1,0)),output_grad)
+        return np.dot(np.transpose(self.input_),output_grad)

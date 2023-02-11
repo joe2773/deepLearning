@@ -18,9 +18,7 @@ class Operation(object):
         '''
         This function calculates the gradient of the output with respect to the input, for a given operation
         '''
-        Assert.same_shape(self.output,output_grad)
         self.input_grad = self._input_grad(output_grad)
-        Assert.same_shape(self.input_,self.input_grad)
         return self.input_grad
 
 
