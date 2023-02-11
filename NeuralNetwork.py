@@ -23,7 +23,7 @@ class NeuralNetwork(object):
             self.input = operation.forward(self.input)
             self.output = self.input
 
-        #self.loss = self.lossOperation._forward(self.output,self.target)
+        self.loss = self.lossOperation._forward(self.output,self.target)
         return self.output
 
     def _backward(self) -> ndarray:

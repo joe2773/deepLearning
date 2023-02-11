@@ -1,6 +1,6 @@
 import numpy as np
 from numpy import ndarray
-from Operation import Operation
+
 class Loss():
     def __init__(self) -> None:
         pass
