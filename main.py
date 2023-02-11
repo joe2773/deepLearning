@@ -11,8 +11,8 @@ from BiasAddOperation import BiasAdd
 
 
 
-weights = np.array([4,3,2,1])
-inputs = np.array([1,2,3,4])
+weights = np.random.rand(4,4)
+inputs = np.array([[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]])
 targets = np.array([1,1,1,1])
 weightMultiplyOp = WeightMultiply(weights)
 loss = MeanSquaredError()
@@ -23,3 +23,5 @@ network = NeuralNetwork(
     loss)
 output = network._forward()
 print(output)
+print(network.loss)
+print(inputs)
