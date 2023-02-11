@@ -14,6 +14,7 @@ class NeuralNetwork(object):
         self.lossOperation = loss
         self.input = input
         self.target = target
+        self.param_grads = np.empty([1,1])
         super().__init__()
 
     def _forward(self) -> ndarray:
@@ -30,15 +31,15 @@ class NeuralNetwork(object):
         #This function calculates the gradient of the model by first calculating the loss_gradient
         #and then working back through the model and calculating the input gradient, alongside the param gradient for each of its operations
         #multiplying them at each step
-        loss_grad = self.loss._input_grad()
+        loss_grad = self.lossOperation._backward()
         for operation in self.operations:
             if(self.operations[0] == operation):
-                self.input_grad = operation._input_grad(loss_grad)
-            if(self._isParamOperation()):
-                self.input_grad = operation._input_grad(self.input_grad)
-                self.param_grads.append(operation._param_grad(self.input_grad))
+                self.input_grad = operation.backward(loss_grad)
+            if(self._isParamOperation(operation)):
+                self.input_grad = operation._backward(self.input_grad)
+                self.param_grads = np.append(self.param_grads,operation._param_grad(self.input_grad))
                 continue
-            self.input_grad = operation._input_grad(self.input_grad)
+            self.input_grad = operation._backward(self.input_grad)
         return self.input_grad        
              
     def _isParamOperation(self, operation: Operation) -> bool:
