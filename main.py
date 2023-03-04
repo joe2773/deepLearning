@@ -13,20 +13,34 @@ from Optimiser import Optimiser
 optimiser = Optimiser()
 weights = np.random.rand(4,4)
 inputs = np.array([[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]])
-targets = np.array([1,1,1,1])
-params = np.array(np.random.rand(4,4),np.ones_like(1,4))
+targets = np.random.rand(4,4)
 num_epochs = 100
 learning_rate = 0.01
+
+weightMultiply = WeightMultiply()
+operationsData = np.array([
+    {'operation': weightMultiply, 'param' : np.random.rand(4,4), 'param_grad' : np.zeros((4,4), dtype=float)},
+    ])
+
 for i in range(num_epochs):
-    weightMultiplyOp = WeightMultiply(params[0])
-    biasAddOp = BiasAdd(params[1])
-    loss = MeanSquaredError()
+    
+    lossOperation = MeanSquaredError()
     network = NeuralNetwork(
         inputs,
         targets,
-        np.array(weightMultiplyOp,biasAddOp),
-        loss)
+        operationsData,
+        lossOperation)
     output = network._forward()
-    grads = network._backward()
-    param_grads = network.param_grads
-    params = optimiser.optimise(learning_rate, params ,param_grads)
+    operationsData = network._backward()
+    
+    operationsData = optimiser.optimise(learning_rate,operationsData)
+    
+
+
+#print('output:')
+#print(output)
+#print('inputs:')
+#print(inputs)
+#print('targets:')
+#print(targets)
+#print(operationsData[0])

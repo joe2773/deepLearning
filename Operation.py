@@ -6,7 +6,7 @@ class Operation(object):
     def __init__(self) -> None:
         pass
 
-    def forward(self, input_ : ndarray):
+    def _forward(self, input_ : ndarray):
         '''
         This function calculates the output for a given operation
         '''
@@ -14,7 +14,7 @@ class Operation(object):
         self.output = self._output()
         return self.output
 
-    def backward(self, output_grad: ndarray):
+    def _backward(self, output_grad: ndarray):
         '''
         This function calculates the gradient of the output with respect to the input, for a given operation
         '''
