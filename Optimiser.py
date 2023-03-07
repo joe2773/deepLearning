@@ -16,5 +16,6 @@ class Optimiser(object):
                 print(x)
                 print('---')
        
+       
         return operationsData
 
