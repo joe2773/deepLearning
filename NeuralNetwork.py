@@ -27,6 +27,7 @@ class NeuralNetwork(object):
             else:
                 self.input = operationData['operation']._forward(self.input, operationData['param'])
                 self.output = self.input
+            
         self.loss = self.lossOperation._forward(self.output,self.target)
         return self.output
 
@@ -40,17 +41,17 @@ class NeuralNetwork(object):
 
             if(operationData != self.operationsData[0]):
                 if(self._isParamOperation(operationData['operation']) == False):
-                    self.input_grad = operationData['operation']._backward(self.input_grad)
-                else:
                     self.input_grad = operationData['operation']._backward(self.input_grad,operationData['param'])
-                    operationData['param_grad'] = operationData['operation']._param_grad(self.input_grad,operationData['param'])
+                else:
+                    self.input_grad = operationData['operation']._backward(self.input_grad)
+                    operationData['param_grad'] = operationData['operation']._param_grad(self.input_grad)
                 
             if(operationData == self.operationsData[0]):
                 if(self._isParamOperation(operationData['operation']) == False):
-                    self.input_grad == operationData['operation']._backward(loss_grad)
+                    self.input_grad == operationData['operation']._backward(loss_grad,operationData['param'])
                 else:
                     self.input_grad = operationData['operation']._backward(loss_grad,operationData['param'])
-                    operationData['param_grad'] = operationData['operation']._param_grad(loss_grad,operationData['param'])
+                    operationData['param_grad'] = operationData['operation']._param_grad(loss_grad)
            
         return self.operationsData       
              

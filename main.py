@@ -12,10 +12,10 @@ from Optimiser import Optimiser
 
 optimiser = Optimiser()
 weights = np.random.rand(4,4)
-inputs = np.array([[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]])
+inputs = np.array([[3,4,5,6],[1,2,3,4],[1,6,4,4],[3,7,3,4]])
 targets = np.random.rand(4,4)
-num_epochs = 100
-learning_rate = 0.01
+num_epochs = 1
+learning_rate = 0.1
 
 weightMultiply = WeightMultiply()
 operationsData = np.array([
@@ -32,13 +32,10 @@ for i in range(num_epochs):
         lossOperation)
     output = network._forward()
     operationsData = network._backward()
-    
     operationsData = optimiser.optimise(learning_rate,operationsData)
-    
-
 
 #print('output:')
-#print(output)
+print(output)
 #print('inputs:')
 #print(inputs)
 #print('targets:')
